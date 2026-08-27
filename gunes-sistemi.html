@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güneş Sistemi Keşfi - Orion's Aerospace</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 2px solid #00f0ff;
+            color: #00f0ff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+            transform: translateX(-5px);
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 30px 20px 20px;
+            font-size: 36px;
+            color: #00f0ff;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tek Güneş Sistemi Modülü */
+        .solar-system-module {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 60px;
+            padding: 40px 40px 60px;
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Her Gök Cismi Kartı */
+        .celestial-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .celestial-body:hover {
+            transform: translateY(-15px) scale(1.1);
+        }
+
+        /* Hologram Küre */
+        .hologram-sphere {
+            position: relative;
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            animation: rotateSphere 12s linear infinite;
+        }
+
+        @keyframes rotateSphere {
+            from { transform: rotateY(0deg) rotateX(15deg); }
+            to { transform: rotateY(360deg) rotateX(15deg); }
+        }
+
+        /* Sık Çizgiler - Enlem */
+        .lat-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            opacity: 0.7;
+            top: 0;
+            left: 0;
+        }
+
+        .lat-line:nth-child(1) { transform: rotateX(0deg); }
+        .lat-line:nth-child(2) { transform: rotateX(15deg); }
+        .lat-line:nth-child(3) { transform: rotateX(30deg); }
+        .lat-line:nth-child(4) { transform: rotateX(45deg); }
+        .lat-line:nth-child(5) { transform: rotateX(60deg); }
+        .lat-line:nth-child(6) { transform: rotateX(75deg); }
+        .lat-line:nth-child(7) { transform: rotateX(90deg); }
+        .lat-line:nth-child(8) { transform: rotateX(105deg); }
+        .lat-line:nth-child(9) { transform: rotateX(120deg); }
+        .lat-line:nth-child(10) { transform: rotateX(135deg); }
+        .lat-line:nth-child(11) { transform: rotateX(150deg); }
+        .lat-line:nth-child(12) { transform: rotateX(165deg); }
+
+        /* Sık Çizgiler - Boylam */
+        .lon-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            opacity: 0.7;
+            top: 0;
+            left: 0;
+        }
+
+        .lon-line:nth-child(13) { transform: rotateY(0deg); }
+        .lon-line:nth-child(14) { transform: rotateY(15deg); }
+        .lon-line:nth-child(15) { transform: rotateY(30deg); }
+        .lon-line:nth-child(16) { transform: rotateY(45deg); }
+        .lon-line:nth-child(17) { transform: rotateY(60deg); }
+        .lon-line:nth-child(18) { transform: rotateY(75deg); }
+        .lon-line:nth-child(19) { transform: rotateY(90deg); }
+        .lon-line:nth-child(20) { transform: rotateY(105deg); }
+        .lon-line:nth-child(21) { transform: rotateY(120deg); }
+        .lon-line:nth-child(22) { transform: rotateY(135deg); }
+        .lon-line:nth-child(23) { transform: rotateY(150deg); }
+        .lon-line:nth-child(24) { transform: rotateY(165deg); }
+
+        /* Güneş */
+        .sun-sphere {
+            width: 140px;
+            height: 140px;
+            color: #ff8c00;
+            box-shadow: 0 0 60px rgba(255, 140, 0, 0.9), inset 0 0 50px rgba(255, 140, 0, 0.5);
+            animation-duration: 25s;
+        }
+
+        .sun-sphere .lat-line,
+        .sun-sphere .lon-line {
+            border-color: #ff8c00;
+            box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+        }
+
+        /* Merkür */
+        .mercury-sphere {
+            width: 50px;
+            height: 50px;
+            color: #8b8b8b;
+            box-shadow: 0 0 30px rgba(139, 139, 139, 0.7);
+        }
+
+        /* Venüs */
+        .venus-sphere {
+            width: 65px;
+            height: 65px;
+            color: #daa520;
+            box-shadow: 0 0 35px rgba(218, 165, 32, 0.7);
+        }
+
+        /* Dünya */
+        .earth-sphere {
+            width: 68px;
+            height: 68px;
+            color: #00f0ff;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
+        }
+
+        /* Mars */
+        .mars-sphere {
+            width: 55px;
+            height: 55px;
+            color: #ff4500;
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.7);
+        }
+
+        /* Jüpiter */
+        .jupiter-sphere {
+            width: 110px;
+            height: 110px;
+            color: #daa520;
+            box-shadow: 0 0 50px rgba(218, 165, 32, 0.8);
+        }
+
+        /* Satürn */
+        .saturn-sphere {
+            width: 95px;
+            height: 95px;
+            color: #ffd700;
+            box-shadow: 0 0 45px rgba(255, 215, 0, 0.8);
+            position: relative;
+        }
+
+        .saturn-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 40px;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            pointer-events: none;
+        }
+
+        /* Uranüs */
+        .uranus-sphere {
+            width: 80px;
+            height: 80px;
+            color: #40e0d0;
+            box-shadow: 0 0 40px rgba(64, 224, 208, 0.7);
+        }
+
+        /* Neptün */
+        .neptune-sphere {
+            width: 78px;
+            height: 78px;
+            color: #4169e1;
+            box-shadow: 0 0 40px rgba(65, 105, 225, 0.7);
+        }
+
+        /* İsim Etiketi */
+        .body-name {
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #00f0ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+            text-align: center;
+        }
+
+        /* Bilgi Popup */
+        .info-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(10, 14, 23, 0.98);
+            backdrop-filter: blur(20px);
+            border: 2px solid #00f0ff;
+            border-radius: 15px;
+            padding: 35px;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.6), 0 0 120px rgba(0, 240, 255, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+        }
+
+        .info-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .info-popup h2 {
+            color: #00f0ff;
+            margin-bottom: 20px;
+            font-size: 30px;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+            border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .info-popup p {
+            color: #d1d5db;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .info-popup strong {
+            color: #00f0ff;
+        }
+
+        .info-popup .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #ff4500;
+            font-size: 36px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .info-popup .close-btn:hover {
+            background: rgba(255, 69, 0, 0.2);
+            color: #ff0000;
+            transform: rotate(90deg);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .solar-system-module {
+                gap: 40px;
+                padding: 30px 20px 50px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sun-sphere { width: 110px; height: 110px; }
+            .jupiter-sphere { width: 85px; height: 85px; }
+            .saturn-sphere { width: 75px; height: 75px; }
+            .uranus-sphere { width: 65px; height: 65px; }
+            .neptune-sphere { width: 62px; height: 62px; }
+            .earth-sphere { width: 55px; height: 55px; }
+            .venus-sphere { width: 52px; height: 52px; }
+            .mars-sphere { width: 45px; height: 45px; }
+            .mercury-sphere { width: 40px; height: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 26px; }
+            .solar-system-module {
+                gap: 30px;
+                padding: 20px 15px 40px;
+            }
+            .sun-sphere { width: 90px; height: 90px; }
+            .jupiter-sphere { width: 70px; height: 70px; }
+            .saturn-sphere { width: 60px; height: 60px; }
+            .uranus-sphere { width: 50px; height: 50px; }
+            .neptune-sphere { width: 48px; height: 48px; }
+            .earth-sphere { width: 42px; height: 42px; }
+            .venus-sphere { width: 40px; height: 40px; }
+            .mars-sphere { width: 35px; height: 35px; }
+            .mercury-sphere { width: 32px; height: 32px; }
+            .body-name { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+
+    <h1 class="page-title">🪐 GÜNEŞ SİSTEMİ KEŞFİ</h1>
+
+    <!-- Tek Güneş Sistemi Modülü -->
+    <div class="solar-system-module">
+        
+        <!-- Güneş -->
+        <div class="celestial-body" onclick="showInfo('sun')">
+            <div class="hologram-sphere sun-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Güneş</div>
+        </div>
+
+        <!-- Merkür -->
+        <div class="celestial-body" onclick="showInfo('mercury')">
+            <div class="hologram-sphere mercury-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Merkür</div>
+        </div>
+
+        <!-- Venüs -->
+        <div class="celestial-body" onclick="showInfo('venus')">
+            <div class="hologram-sphere venus-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Venüs</div>
+        </div>
+
+        <!-- Dünya -->
+        <div class="celestial-body" onclick="showInfo('earth')">
+            <div class="hologram-sphere earth-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Dünya</div>
+        </div>
+
+        <!-- Mars -->
+        <div class="celestial-body" onclick="showInfo('mars')">
+            <div class="hologram-sphere mars-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Mars</div>
+        </div>
+
+        <!-- Jüpiter -->
+        <div class="celestial-body" onclick="showInfo('jupiter')">
+            <div class="hologram-sphere jupiter-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Jüpiter</div>
+        </div>
+
+        <!-- Satürn -->
+        <div class="celestial-body" onclick="showInfo('saturn')">
+            <div class="hologram-sphere saturn-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="saturn-ring"></div>
+            <div class="body-name">Satürn</div>
+        </div>
+
+        <!-- Uranüs -->
+        <div class="celestial-body" onclick="showInfo('uranus')">
+            <div class="hologram-sphere uranus-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Uranüs</div>
+        </div>
+
+        <!-- Neptün -->
+        <div class="celestial-body" onclick="showInfo('neptune')">
+            <div class="hologram-sphere neptune-sphere">
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lat-line"></div><div class="lat-line"></div><div class="lat-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+                <div class="lon-line"></div><div class="lon-line"></div><div class="lon-line"></div>
+            </div>
+            <div class="body-name">Neptün</div>
+        </div>
+
+    </div>
+
+    <!-- Bilgi Popup -->
+    <div class="overlay" id="overlay" onclick="closeInfo()"></div>
+    <div class="info-popup" id="infoPopup">
+        <button class="close-btn" onclick="closeInfo()">&times;</button>
+        <h2 id="popupTitle">Başlık</h2>
+        <div id="popupContent">
+            <p>İçerik buraya gelecek...</p>
+        </div>
+    </div>
+
+    <script>
+        const planetData = {
+            sun: {
+                title: "☀️ Güneş",
+                content: `<p><strong>Tür:</strong> G-tipi Ana Kol Yıldızı (Sarı Cüce)</p><p><strong>Çap:</strong> 1.392.700 km (Dünya'nın 109 katı)</p><p><strong>Kütle:</strong> Güneş Sistemi'nin %99.86'sı</p><p><strong>Yüzey Sıcaklığı:</strong> 5.500°C</p><p><strong>Çekirdek Sıcaklığı:</strong> 15 milyon °C</p><p><strong>Yaş:</strong> 4.6 milyar yıl</p><p><strong>Açıklama:</strong> Güneş, Güneş Sistemi'nin merkezindeki yıldızdır. Hidrojen füzyonu ile enerji üretir ve tüm gezegenlerin yörüngede dönmesini sağlayan kütleçekimi oluşturur. Işığı Dünya'ya 8 dakikada ulaşır.</p>`
+            },
+            mercury: {
+                title: "☿️ Merkür",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 57.9 milyon km</p><p><strong>Çap:</strong> 4.879 km</p><p><strong>Bir Yıl:</strong> 88 Dünya günü</p><p><strong>Bir Gün:</strong> 59 Dünya günü</p><p><strong>Sıcaklık:</strong> -180°C ile 430°C arası</p><p><strong>Uydu:</strong> Yok</p><p><strong>Açıklama:</strong> Güneş'e en yakın ve en küçük gezegendir. Atmosferi neredeyse yoktur, bu yüzden sıcaklık farkları çok yüksektir. Yüzeyi kraterlerle kaplıdır ve Dünya'nın Ay'ına benzer.</p>`
+            },
+            venus: {
+                title: "♀️ Venüs",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 108.2 milyon km</p><p><strong>Çap:</strong> 12.104 km</p><p><strong>Bir Yıl:</strong> 225 Dünya günü</p><p><strong>Bir Gün:</strong> 243 Dünya günü (ters yönde)</p><p><strong>Sıcaklık:</strong> 462°C (en sıcak gezegen)</p><p><strong>Uydu:</strong> Yok</p><p><strong>Açıklama:</strong> Dünya'nın "kız kardeşi" olarak bilinir. Kalın karbondioksit atmosferi nedeniyle aşırı sera etkisi vardır. Güneş Sistemi'nde saat yönünde dönen tek gezegendir.</p>`
+            },
+            earth: {
+                title: "🌍 Dünya",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 149.6 milyon km (1 AU)</p><p><strong>Çap:</strong> 12.742 km</p><p><strong>Bir Yıl:</strong> 365.25 gün</p><p><strong>Bir Gün:</strong> 24 saat</p><p><strong>Sıcaklık:</strong> Ortalama 15°C</p><p><strong>Uydu:</strong> 1 (Ay)</p><p><strong>Açıklama:</strong> Bildiğimiz kadarıyla yaşam barındıran tek gezegen. Yüzeyinin %71'i su ile kaplıdır. Güçlü manyetik alanı ve atmosferi sayesinde yaşam için ideal koşullar sunar.</p>`
+            },
+            mars: {
+                title: "♂️ Mars",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 227.9 milyon km</p><p><strong>Çap:</strong> 6.779 km</p><p><strong>Bir Yıl:</strong> 687 Dünya günü</p><p><strong>Bir Gün:</strong> 24 saat 37 dakika</p><p><strong>Sıcaklık:</strong> Ortalama -63°C</p><p><strong>Uydu:</strong> 2 (Phobos, Deimos)</p><p><strong>Açıklama:</strong> "Kızıl Gezegen" olarak bilinir. Demir oksit (pas) nedeniyle kırmızı görünür. Kutuplarında su buzulu vardır ve geçmişte sıvı su bulunduğuna dair kanıtlar mevcuttur.</p>`
+            },
+            jupiter: {
+                title: " Jüpiter",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 778.5 milyon km</p><p><strong>Çap:</strong> 139.820 km (en büyük gezegen)</p><p><strong>Bir Yıl:</strong> 11.86 Dünya yılı</p><p><strong>Bir Gün:</strong> 9 saat 56 dakika</p><p><strong>Sıcaklık:</strong> -108°C</p><p><strong>Uydu:</strong> 79+ (Io, Europa, Ganymede, Callisto)</p><p><strong>Açıklama:</strong> Güneş Sistemi'nin en büyük gezegeni. Büyük Kırmızı Leke, 350 yıldır devam eden dev bir fırtınadır. Güçlü manyetik alanı ve çok sayıda uydusu vardır.</p>`
+            },
+            saturn: {
+                title: "♄ Satürn",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 1.43 milyar km</p><p><strong>Çap:</strong> 116.460 km</p><p><strong>Bir Yıl:</strong> 29.45 Dünya yılı</p><p><strong>Bir Gün:</strong> 10 saat 42 dakika</p><p><strong>Sıcaklık:</strong> -139°C</p><p><strong>Uydu:</strong> 82+ (Titan, Enceladus)</p><p><strong>Açıklama:</strong> Muhteşem halka sistemiyle ünlüdür. Halkalar buz ve kaya parçacıklarından oluşur. Yoğunluğu sudan azdır - teorik olarak dev bir okyanusta yüzebilir!</p>`
+            },
+            uranus: {
+                title: "♅ Uranüs",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 2.87 milyar km</p><p><strong>Çap:</strong> 50.724 km</p><p><strong>Bir Yıl:</strong> 84 Dünya yılı</p><p><strong>Bir Gün:</strong> 17 saat 14 dakika</p><p><strong>Sıcaklık:</strong> -197°C</p><p><strong>Uydu:</strong> 27</p><p><strong>Açıklama:</strong> 98 derece eğik ekseniyle "yan yatan" gezegendir. Metan atmosferi nedeniyle mavi-yeşil görünür. Buz devi sınıfındadır ve halka sistemi vardır.</p>`
+            },
+            neptune: {
+                title: "♆ Neptün",
+                content: `<p><strong>Güneş'e Uzaklık:</strong> 4.5 milyar km</p><p><strong>Çap:</strong> 49.244 km</p><p><strong>Bir Yıl:</strong> 164.8 Dünya yılı</p><p><strong>Bir Gün:</strong> 16 saat 6 dakika</p><p><strong>Sıcaklık:</strong> -201°C</p><p><strong>Uydu:</strong> 14 (Triton)</p><p><strong>Açıklama:</strong> Güneş'ten en uzak gezegen. Matematiksel hesaplamalarla keşfedilen ilk gezegendir. Güneş Sistemi'nin en hızlı rüzgarlarına sahiptir (2.100 km/s).</p>`
+            }
+        };
+
+        function showInfo(planetKey) {
+            const popup = document.getElementById('infoPopup');
+            const overlay = document.getElementById('overlay');
+            const title = document.getElementById('popupTitle');
+            const content = document.getElementById('popupContent');
+            
+            const data = planetData[planetKey];
+            if (data) {
+                title.innerHTML = data.title;
+                content.innerHTML = data.content;
+                popup.classList.add('show');
+                overlay.classList.add('show');
+            }
+        }
+
+        function closeInfo() {
+            document.getElementById('infoPopup').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeInfo();
+        });
+    </script>
+</body>
+</html>
