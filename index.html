@@ -11,6 +11,29 @@
 
     <!-- PROFESYONEL TASARIM KODLARI (CSS) -->
     <style>
+        .search-container {
+    text-align: center;
+    margin: 40px auto 20px auto;
+    max-width: 500px;
+    padding: 0 20px;
+}
+#searchInput {
+    width: 100%;
+    padding: 14px 22px;
+    background: rgba(22, 27, 34, 0.9);
+    border: 2px solid rgba(0, 240, 255, 0.3);
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+#searchInput:focus {
+    border-color: #00f0ff;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+}
         /* PÜRÜZSÜZ KAYDIRMA VE MENÜ HİZALAMA */
         html {
             scroll-behavior: smooth;
@@ -241,6 +264,104 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
         }
+        .nasa-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+.nasa-card {
+    background: rgba(22, 27, 34, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+}
+.nasa-card img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.nasa-card h3 {
+    color: #00f0ff;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+.nasa-card p {
+    color: #d1d5db;
+    font-size: 16px;
+    line-height: 1.8;
+}
+.nasa-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.nasa-toggle-btn {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid #00f0ff;
+    color: #00f0ff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.nasa-toggle-btn:hover {
+    background: #00f0ff;
+    color: #0b0d17;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+}
+/* TELEFON (MOBİL) MENÜ DÜZENLEMESİ */
+@media (max-width: 768px) {
+    header { 
+        padding: 15px 20px; 
+    }
+    
+    .hamburger { 
+        display: flex; 
+    }
+    
+    #nav-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100vh;
+        background: rgba(11, 13, 23, 0.98);
+        backdrop-filter: blur(15px);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 1px solid rgba(0, 240, 255, 0.2);
+        z-index: 9999;
+    }
+
+    #nav-menu.active {
+        right: 0;
+    }
+
+    #nav-menu a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 18px 0;
+        font-size: 20px;
+        color: #ffffff;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+}
     </style>
 </head>
 <body>
@@ -267,6 +388,9 @@
         <h1>Derin Uzay ve Havacılık Notları</h1>
         <p>Astrofizik, roket teknolojileri ve evrenin gizemlerine dair teknik incelemeler ve kişisel araştırmalar.</p>
     </section>
+    <div class="search-container">
+    <input type="text" id="searchInput" placeholder="🔍 Uzayda bir konu ara (örn: Yıldız, Karadelik)...">
+</div>
 
     <!-- 3. İÇERİK KARTLARI -->
     <main class="container" id="konular">
@@ -352,6 +476,16 @@
             </a>
         </div>
     </section>
+
+    <section class="nasa-section">
+    <div class="nasa-header-row">
+        <h2 class="section-title" style="margin: 0;">🛰️ NASA - Günün Fotoğrafı</h2>
+        <button id="toggleNasaBtn" class="nasa-toggle-btn">Fotoğrafı Gizle</button>
+    </div>
+    <div id="nasaApodContainer" class="nasa-card">
+        <p style="text-align: center; color: #00f0ff;">NASA'dan günün uzay verisi yükleniyor...</p>
+    </div>
+</section>
     
     <!-- 4. HAKKIMDA BÖLÜMÜ -->
     <section class="container" id="hakkimda" style="margin-top: 20px;">
@@ -405,18 +539,22 @@
         </div>
     </div>
 
-    <script>
+   <script>
+    // 1. YUKARI ÇIK BUTONU
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add("show");
-        } else {
-            scrollTopBtn.classList.remove("show");
-        }
-    });
+    if (scrollTopBtn) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add("show");
+            } else {
+                scrollTopBtn.classList.remove("show");
+            }
+        });
+    }
 
     function scrollToTop() {
+        if (!scrollTopBtn) return;
         scrollTopBtn.classList.add("launching");
         createFlameParticles();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -424,6 +562,7 @@
     }
 
     function createFlameParticles() {
+        if (!scrollTopBtn) return;
         for (let i = 0; i < 20; i++) {
             const particle = document.createElement("div");
             particle.className = "flame-particle";
@@ -456,22 +595,26 @@
         }
     }
 
+    // 2. HAMBURGER MENÜ
     const hamburger = document.getElementById("hamburger");
     const navMenu = document.getElementById("nav-menu");
     const navLinks = document.querySelectorAll("nav a");
 
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-    });
-
-    navLinks.forEach(link => {
-        link.addEventListener("click", () => {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
+    if (hamburger && navMenu) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
         });
-    });
 
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            });
+        });
+    }
+
+    // 3. UZAY BİLGİSİ ZARI
     const spaceFacts = [
         "Karadeliklerin olay ufkuna yaklaştıkça zaman bükülür ve dışarıdaki bir gözlemciye göre zamanınız yavaşlar.",
         "Nötron yıldızlarının sadece bir çay kaşığı kadarı Dünya'da yaklaşık 6 milyar ton ağırlığında olurdu.",
@@ -487,29 +630,97 @@
     const factText = document.getElementById("fact-text");
     const closeFact = document.getElementById("close-fact");
 
-    diceBtn.addEventListener("click", () => {
-        const today = new Date().toLocaleDateString();
-        const lastRollDate = localStorage.getItem("lastDiceRollDate");
-        
-        if (lastRollDate === today) {
-            factText.innerHTML = localStorage.getItem("savedSpaceFact") + "<br><br><span style='color:#8b949e; font-size:11px;'>(Günün zarını zaten attın, yarın tekrar gel!)</span>";
-            factPopup.classList.add("show");
-        } else {
-            diceBtn.classList.add("rolling");
-            setTimeout(() => {
-                const randomFact = spaceFacts[Math.floor(Math.random() * spaceFacts.length)];
-                factText.innerText = randomFact;
-                localStorage.setItem("lastDiceRollDate", today);
-                localStorage.setItem("savedSpaceFact", randomFact);
-                diceBtn.classList.remove("rolling");
+    if (diceBtn && factPopup && factText) {
+        diceBtn.addEventListener("click", () => {
+            const today = new Date().toLocaleDateString();
+            const lastRollDate = localStorage.getItem("lastDiceRollDate");
+            
+            if (lastRollDate === today) {
+                factText.innerHTML = localStorage.getItem("savedSpaceFact") + "<br><br><span style='color:#8b949e; font-size:11px;'>(Günün zarını zaten attın, yarın tekrar gel!)</span>";
                 factPopup.classList.add("show");
-            }, 800); 
-        }
-    });
+            } else {
+                diceBtn.classList.add("rolling");
+                setTimeout(() => {
+                    const randomFact = spaceFacts[Math.floor(Math.random() * spaceFacts.length)];
+                    factText.innerText = randomFact;
+                    localStorage.setItem("lastDiceRollDate", today);
+                    localStorage.setItem("savedSpaceFact", randomFact);
+                    diceBtn.classList.remove("rolling");
+                    factPopup.classList.add("show");
+                }, 800); 
+            }
+        });
+    }
 
-    closeFact.addEventListener("click", () => {
-        factPopup.classList.remove("show");
-    });
-    </script>
+    if (closeFact && factPopup) {
+        closeFact.addEventListener("click", () => {
+            factPopup.classList.remove("show");
+        });
+    }
+
+    // 4. ARAMA ÇUBUĞU (SEARCH)
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".card"); 
+
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            const searchText = e.target.value.toLowerCase().trim();
+            
+            cards.forEach(card => {
+                const cardText = card.innerText.toLowerCase();
+                if (cardText.includes(searchText)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    }
+
+    // 5. NASA APOD VERİ ÇEKME & GİZLE/GÖSTER
+    async function fetchNasaApod() {
+        const container = document.getElementById("nasaApodContainer");
+        if (!container) return;
+
+        const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
+
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.media_type === "image") {
+                container.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <img src="${data.url}" alt="${data.title}">
+                    <p>${data.explanation}</p>
+                `;
+            } else {
+                container.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p>Bugünün NASA içeriği video formatındadır. Açıklama: ${data.explanation}</p>
+                `;
+            }
+        } catch (error) {
+            container.innerHTML = `<p style="color: #ff4500; text-align: center;">Günün fotoğrafı yüklenirken bir bağlantı hatası oluştu.</p>`;
+        }
+    }
+
+    fetchNasaApod();
+
+    const toggleBtn = document.getElementById("toggleNasaBtn");
+    const nasaCard = document.getElementById("nasaApodContainer");
+
+    if (toggleBtn && nasaCard) {
+        toggleBtn.addEventListener("click", () => {
+            nasaCard.classList.toggle("collapsed");
+            
+            if (nasaCard.classList.contains("collapsed")) {
+                toggleBtn.innerText = "Fotoğrafı Göster";
+            } else {
+                toggleBtn.innerText = "Fotoğrafı Gizle";
+            }
+        });
+    }
+</script> 
 </body>
 </html>
