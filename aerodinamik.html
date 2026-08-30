@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temel Aerodinamik İlkeler ve Uçuş Araçlarında Kullanılışları | Detay Notları</title>
+    
+    <style>
+        /* DİNAMİK RENK DEĞİŞKENLERİ */
+:root {
+    --bg-color: #050505;
+    --card-bg: #121212;
+    --text-color: #ffffff;
+    --accent-color: #00f0ff;
+}
+
+/* Sayfadaki Tüm Elemanların Tema Rengini Alması */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Bütün kartlar ve kutular arka plan temasına uyar */
+.card, .nasa-card, .container, section, article {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Başlıklar ve vurgulu yazılar seçilen Vurgu Rengini alır */
+h1, h2, h3, .logo, .highlight, nav a:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Paragraflar ve listeler ana yazı rengini alır */
+p, li, span {
+    color: var(--text-color);
+}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0d17;
+            color: #ffffff;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .back-btn {
+            display: inline-block;
+            color: #00f0ff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 25px;
+            transition: 0.2s;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        h1 {
+            color: #00f0ff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        .hero-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        p {
+            color: #d1d5db;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+        .highlight-box {
+            background-color: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid #00f0ff;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ANA SAYFAYA DÖNÜŞ BUTONU -->
+        <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+
+        <!-- BAŞLIK -->
+        <h1>Aerodinamik Nedir?</h1>
+
+        <!-- GÖRSEL -->
+        <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJzxY4_AWXi13bSiRT2ku58XcVPVfzJvZK7n0Z94b8Vw&s=10" alt="F1 aracının aerodinamik analizi">
+
+        <!-- İÇERİK PARAGRAFLARI -->
+        <p>
+            Aerodinamik, hareket eden katı kütlelerin havayla etkileşimlerini inceleyen bilim dalıdır.Aerodinamik akışkan dinamiği ve gaz dinamiğinin bir alt dalıdır ve aerodinamiğin birçok bakış açısı, teorisi bu alanlarda ortaktır. Aerodinamik genellikle gaz dinamiği için kullanılır; gaz dinamiğinin aerodinamikten farkı, tüm gazlar için çalışması ve aerodinamik gibi yalnızca hava ile sınırlanmamış olmasıdır. 
+        </p>
+
+        <h2>Aerodinamik Yasalar</h2>
+
+        <p>
+            Öncelikle Lift kuvvetini inceleyelim. Lift kuvveti uçağı havada tutan temel etkendir. Uçağın kanatlarının şekli(airfoil) yüzünden hava üstten yani kavisli kısımdan daha hızlı geçerken alt kısmından yani düz kısımdan daha yavaş geçer. Peki neden üstten daha hızlı geçer?
+        <p>
+
+       <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVAjg5IfMqWDBP9ujXiBkAhVgLDtLzBWahhtQl3RCWMw&s=10" alt="Airfoil ve Lift Kuvveti">
+        <p>
+            Dar boğaz etkisine göre uçak ilerlerken hava kanada doğru eser ve üst taraftaki kavis üzerinden geçen hava katmanlarını yukarıya doğru iter. Ancak üstteki atmosfer kütleside buna direnir. Bunun sonucunsa kanatla üstteki durgun hava katmanı arasında daralan bir hava kanalı oluşur ve aynı bir bahçe hortumunu sıktığınızda suyun daha tayzikli akması gibi havada giderek hızlanır. Hva moleküllerini bilyeler gibi düşünürsek durgun havadaki yani kanadın alt kısmındaki hava molekülleri hava yavaş aktığı için enerjisinin çoğunu sağa sola kanat yüzeyine çarpmaya harcar. Moleküller kanat yüzeyine süreki direkt olarak çarptıkları için büyük bir kuvvet uygularlar bunun sonucundada yüksek basınç oluşur. Hızlı havada ise hava hızlı aktığı için moleküller sahip oldukları enerjinin büyük bir kısmını ileri akmaya harcarlar. Yüzeye çarpan mölekül sayısı ve kuvvet az olduğu için düşük basınç oluşur. Baıncı eşitlemek isteyen gazlar doğası gereği yüksek basınçtan düşük basınca doğru ilerlemek ve orayı doldurmak ister. İşte bundan dolayı alttaki yüksek basınç düşük basınca doğru ilerlemek ister ancak arada uçağın kanadı vardır. Basıncı dengelemek isteyen hva molekülleri aşağıdan yukarıya doğru kanadı itmeye başlar. Aynı anda üstekki düşük basınçta dengelemek için hava moleküllerini çekerek kanadı yukarıya doğru çeker. İşte bu çekme ve  itme kuvvetlerinin toplamına Taşıma(Lift) Kuvveti denir ve uçağın havalanmasını sağlar.
+        </p>
+        <p>
+            Hadi öyleyse Drag yani Sürüklenme kuvvetine geçelim. Sürüklenme kuvveti herhangi bir akışkanın(hava veya su) içinde  hareket eden cismin ters yönüne etki eden,onu yavaşlatmaya çalışan ve bir nevi takoz etkisi gösteren kuvettir. Sürüklenme Kuvveti kendi içinde ana olarak iki bölüme ayrılır; Parazit Sürüklenme ve İndüklenmiş Sürüklenme. Yüzey sürtünmesi,uçağın şekli ve parçalarının birleşme noktaları olarak 3 ana neden parazit sürüklenmeyi oluşturur. Yüzey Sürtünme Sürüklenmesi uçağın dışındaki katmanlar ile akan havanın arasındaki sürtünmeden doğar. Şekil Sürüklenmesi uçağın enine kesit alanından kaynaklanır. Eğer sürtünmenin az olması isteniyorsa bu kesit alanı düşürülmelidir. Entenferans Sürüklenmesi ise uçakta kanat ile gövdenin kuyruk ile gövdenin birleştiği benzeri birleşme alanlarında gözlemlenir. İki farklı birleşme noktası üzerinden geçen iki hava akışı çarpıştığında Kuyruk Türbülansı gözlemlenir. İndüklenmiş Sürüklenmede ise az önve bahsettiğimiz lift kuvveti sonucunda oluşan alttaki yüksek basınç yukarıya çıkmak basıncı dengelemek ister işte burda kanat uçlarına gelince o aradaki engel kalkar ve yüksek basınç kıvrılaral yukarıya çıkar. Bunun sonucunda kant uçlarında girdablar (vortex) oluşur. Oluşan bu girdaplar kanadanın arkasından geçmeye çalıan havayı kuvvetle aşağı bastırırlar ve normalde gelen rüzgara karşı tam doksan derece yani dik olması gereken Lift kuvveti yukarı etki etmesi gerekirken bu girdapların uyguladığı kuvvetler sonucunda kanada giren havanın yönü aşağıya doğru olur. Hava akışı aşağıya doğru oluna ona dik olan lift kuvvetinin vektörüde geriye doğru olur ve bunun sonucunda uçağı aşağıya doğru çeken bir fren kuvvetine dönüşür.
+        <p>
+           <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcc5g7ercxgv_I3dzkJYksotyY4nOPod16nlPqjkcC7w&s=10" alt="İndüklenmiş Sürüklenme">
+        <p>
+            Drag katsayısı ise havada hareket eden bir hava aracının sürüklenmeye karşı ne kadar direnç gösterdiğini belirten boyutsuz bir sayıdır.
+        </p>  
+    </div>
+<script>
+(function applySavedTheme() {
+    const theme = localStorage.getItem("siteTheme") || "deep-space";
+    const accent = localStorage.getItem("siteColor") || "#00f0ff";
+
+    // Vurgu Rengini Uygula
+    document.documentElement.style.setProperty("--accent-color", accent);
+
+    // Arka Plan ve Kart Temasını Uygula
+    if (theme === "deep-space") {
+        document.documentElement.style.setProperty("--bg-color", "#050505");
+        document.documentElement.style.setProperty("--card-bg", "#121b28");
+        document.documentElement.style.setProperty("--text-color", "#f0f0f0");
+    } else if (theme === "nebula") {
+        document.documentElement.style.setProperty("--bg-color", "#13091f");
+        document.documentElement.style.setProperty("--card-bg", "#221236");
+        document.documentElement.style.setProperty("--text-color", "#f3e8ff");
+    } else if (theme === "galaxy") {
+        document.documentElement.style.setProperty("--bg-color", "#080e1e");
+        document.documentElement.style.setProperty("--card-bg", "#0f1a35");
+        document.documentElement.style.setProperty("--text-color", "#e2e8f0");
+    }
+})();
+</script>
+</body>
+</html>

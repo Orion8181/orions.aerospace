@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Ayarları - Orion</title>
+    <style>
+        /* DİNAMİK RENK DEĞİŞKENLERİ */
+:root {
+    --bg-color: #050505;
+    --card-bg: #121212;
+    --text-color: #ffffff;
+    --accent-color: #00f0ff;
+}
+
+/* Sayfadaki Tüm Elemanların Tema Rengini Alması */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Bütün kartlar ve kutular arka plan temasına uyar */
+.card, .nasa-card, .container, section, article {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Başlıklar ve vurgulu yazılar seçilen Vurgu Rengini alır */
+h1, h2, h3, .logo, .highlight, nav a:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Paragraflar ve listeler ana yazı rengini alır */
+p, li, span {
+    color: var(--text-color);
+}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0d17;
+            color: #ffffff;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .settings-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .back-link {
+            display: inline-block;
+            color: #00f0ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .group { margin-bottom: 30px; }
+        .group h3 {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+            color: #00f0ff;
+        }
+        .btn-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+        .opt-btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: #0b0d17;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .opt-btn.selected {
+            border-color: #00f0ff;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+            font-weight: bold;
+        }
+        
+        /* KAYDET BUTONU */
+        .save-btn {
+            width: 100%;
+            padding: 15px;
+            background: #00f0ff;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin-top: 10px;
+        }
+        .save-btn:hover { transform: scale(1.02); background: #00d8e6; }
+    </style>
+</head>
+<body>
+
+    <div class="settings-card">
+        <a href="index.html" class="back-link">⬅ Ana Sayfaya Dön</a>
+        <h2>⚙️ Görünüm Ayarları</h2>
+
+        <!-- Uzay Teması -->
+        <div class="group">
+            <h3>Arka Plan Teması</h3>
+            <div class="btn-grid">
+                <button class="opt-btn theme-opt" data-theme="deep-space">🌌 Derin Uzay (Siyah)</button>
+                <button class="opt-btn theme-opt" data-theme="nebula">🔮 Nebula (Mor)</button>
+                <button class="opt-btn theme-opt" data-theme="galaxy">🪐 Galaksi (Mavi)</button>
+            </div>
+        </div>
+
+        <!-- Vurgu ve Yazı Rengi -->
+        <div class="group">
+            <h3>Vurgu ve Yazı Tonu</h3>
+            <div class="btn-grid">
+                <button class="opt-btn color-opt" data-color="#00f0ff">Buz Mavisi</button>
+                <button class="opt-btn color-opt" data-color="#ff4500">Mars Turuncusu</button>
+                <button class="opt-btn color-opt" data-color="#00ff88">Neon Yeşili</button>
+                <button class="opt-btn color-opt" data-color="#ffffff">Yıldız Beyazı</button>
+            </div>
+        </div>
+
+        <!-- Kaydet Butonu -->
+        <button id="saveSettings" class="save-btn">💾 Ayarları Kaydet ve Uygula</button>
+    </div>
+
+    <script>
+        let selectedTheme = localStorage.getItem("siteTheme") || "deep-space";
+        let selectedColor = localStorage.getItem("siteColor") || "#00f0ff";
+
+        const themeBtns = document.querySelectorAll(".theme-opt");
+        const colorBtns = document.querySelectorAll(".color-opt");
+
+        // Mevcut seçimleri butonlarda göster
+        themeBtns.forEach(b => {
+            if(b.dataset.theme === selectedTheme) b.classList.add("selected");
+            b.addEventListener("click", () => {
+                themeBtns.forEach(x => x.classList.remove("selected"));
+                b.classList.add("selected");
+                selectedTheme = b.dataset.theme;
+            });
+        });
+
+        colorBtns.forEach(b => {
+            if(b.dataset.color === selectedColor) b.classList.add("selected");
+            b.addEventListener("click", () => {
+                colorBtns.forEach(x => x.classList.remove("selected"));
+                b.classList.add("selected");
+                selectedColor = b.dataset.color;
+            });
+        });
+
+        // Kaydet Butonuna Basıldığında
+        document.getElementById("saveSettings").addEventListener("click", () => {
+            localStorage.setItem("siteTheme", selectedTheme);
+            localStorage.setItem("siteColor", selectedColor);
+            alert("Ayarlar kaydedildi! Ana sayfaya yönlendiriliyorsunuz.");
+            window.location.href = "index.html";
+        });
+    </script>
+    <script>
+(function applySavedTheme() {
+    const theme = localStorage.getItem("siteTheme") || "deep-space";
+    const accent = localStorage.getItem("siteColor") || "#00f0ff";
+
+    // Vurgu Rengini Uygula
+    document.documentElement.style.setProperty("--accent-color", accent);
+
+    // Arka Plan ve Kart Temasını Uygula
+    if (theme === "deep-space") {
+        document.documentElement.style.setProperty("--bg-color", "#050505");
+        document.documentElement.style.setProperty("--card-bg", "#121b28");
+        document.documentElement.style.setProperty("--text-color", "#f0f0f0");
+    } else if (theme === "nebula") {
+        document.documentElement.style.setProperty("--bg-color", "#13091f");
+        document.documentElement.style.setProperty("--card-bg", "#221236");
+        document.documentElement.style.setProperty("--text-color", "#f3e8ff");
+    } else if (theme === "galaxy") {
+        document.documentElement.style.setProperty("--bg-color", "#080e1e");
+        document.documentElement.style.setProperty("--card-bg", "#0f1a35");
+        document.documentElement.style.setProperty("--text-color", "#e2e8f0");
+    }
+})();
+</script>
+</body>
+</html>

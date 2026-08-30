@@ -4,8 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gezegenler Neden Yıldızlar Etrafında Oluşur ve Yörüngeye Girer | Detay Notları</title>
-    
+   
     <style>
+        /* DİNAMİK RENK DEĞİŞKENLERİ */
+:root {
+    --bg-color: #050505;
+    --card-bg: #121212;
+    --text-color: #ffffff;
+    --accent-color: #00f0ff;
+}
+
+/* Sayfadaki Tüm Elemanların Tema Rengini Alması */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Bütün kartlar ve kutular arka plan temasına uyar */
+.card, .nasa-card, .container, section, article {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Başlıklar ve vurgulu yazılar seçilen Vurgu Rengini alır */
+h1, h2, h3, .logo, .highlight, nav a:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Paragraflar ve listeler ana yazı rengini alır */
+p, li, span {
+    color: var(--text-color);
+}
         * {
             box-sizing: border-box;
             margin: 0;
@@ -94,6 +124,29 @@
             Uzayda kütleçekimiyle bağlı iki cisim, aslında ortak kütleçekim merkezlerinin (barycenter) etrafında dolanır. Yani gezegen sadece yıldızın çevresinde dolanmaz, yıldız ve gezegen karşılıklı olarak bu ortak merkezin etrafında hareket ederler.
         </p>
     </div>
+<script>
+(function applySavedTheme() {
+    const theme = localStorage.getItem("siteTheme") || "deep-space";
+    const accent = localStorage.getItem("siteColor") || "#00f0ff";
 
+    // Vurgu Rengini Uygula
+    document.documentElement.style.setProperty("--accent-color", accent);
+
+    // Arka Plan ve Kart Temasını Uygula
+    if (theme === "deep-space") {
+        document.documentElement.style.setProperty("--bg-color", "#050505");
+        document.documentElement.style.setProperty("--card-bg", "#121b28");
+        document.documentElement.style.setProperty("--text-color", "#f0f0f0");
+    } else if (theme === "nebula") {
+        document.documentElement.style.setProperty("--bg-color", "#13091f");
+        document.documentElement.style.setProperty("--card-bg", "#221236");
+        document.documentElement.style.setProperty("--text-color", "#f3e8ff");
+    } else if (theme === "galaxy") {
+        document.documentElement.style.setProperty("--bg-color", "#080e1e");
+        document.documentElement.style.setProperty("--card-bg", "#0f1a35");
+        document.documentElement.style.setProperty("--text-color", "#e2e8f0");
+    }
+})();
+</script>
 </body>
 </html>

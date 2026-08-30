@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yörünge Mekaniği ve Kaçış Hızı | Detay Notları</title>
+    
+    <style>
+        /* DİNAMİK RENK DEĞİŞKENLERİ */
+:root {
+    --bg-color: #050505;
+    --card-bg: #121212;
+    --text-color: #ffffff;
+    --accent-color: #00f0ff;
+}
+
+/* Sayfadaki Tüm Elemanların Tema Rengini Alması */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Bütün kartlar ve kutular arka plan temasına uyar */
+.card, .nasa-card, .container, section, article {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Başlıklar ve vurgulu yazılar seçilen Vurgu Rengini alır */
+h1, h2, h3, .logo, .highlight, nav a:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Paragraflar ve listeler ana yazı rengini alır */
+p, li, span {
+    color: var(--text-color);
+}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0d17;
+            color: #ffffff;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .back-btn {
+            display: inline-block;
+            color: #00f0ff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 25px;
+            transition: 0.2s;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        h1 {
+            color: #00f0ff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        .hero-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        p {
+            color: #d1d5db;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+        .highlight-box {
+            background-color: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid #00f0ff;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ANA SAYFAYA DÖNÜŞ BUTONU -->
+        <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+
+        <!-- BAŞLIK -->
+        <h1>Yörünge ve Yörünge Mekaniği Nedir?</h1>
+
+        <!-- GÖRSEL -->
+        <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSD0Oty-t03iXVPXjHVQ7VKrTR0AADhYEEu5vQXVZdLQ&s=10" alt="Yörünge Mekaniği">
+
+        <!-- İÇERİK PARAGRAFLARI -->
+        <p>
+            Uzayda bir cismin (uydu,gazegen vb.) başka bir cisim etrafında izlediği düzenli döngüsel yola yörünge denir. Yörünge mekaniği roket,yapay uydu gibi cisimlerin uzayda hareket ederken uyguladığı veya ona uygulanan kuvvetleri analiz eden daldır.
+        </p>
+
+        <h2>Kepler Yasaları Nedir ?</h2>
+
+        <p>
+           Kepler yasaları uydular gibi uzay elemanlarının yörünge hareketlerini açıklayan 3 ana yasadır. Bu yasaları açıklamadan bir kaç noktayı açığa kavuşturmamuz lazım yörüngeler tamamen çember şeklinde değidir. Elips adını verdiğimiz basık çemberler şeklindedir. Elips yörüngelerde iki adet odak noktası bulunur. Biri merkezi kütle iken diğeri boştur. Dolanma sırasında aralık sürekli değişir. Kepler'in birinci yasasına göre Merkezi Kütle yani güneş etrafında gezegenler eliptik bir yörüngede döner. Eliptik yörüngede gezegen güneşe yaklaştıkça hızı artar uzaklaştıkça hızı azalır hatta bundan dolayı kuzay yarım kürede yaz mevsimi kış evsiminden yaklaşık 5 gün daha uzundur çünkü dünya güneşten uzaklaştığında yaz yakınlaştığında kış mevsimi yaşanır,yakınken daha hızlı ilerlediği için kış mevsimi yaz mevsiminden daha kısadır. Kepler'in ikinci yasasına göre bir gezegen Güneş'in etrafında izlediği yörüngede ilerlerken Güneş ile arasındaki teorik çizgi ile özdeş zamanda özdeş yerleri tarar. Gezegen Güneş'e yaklaştıkça yörüngede daha uzun bir yay çizer ancak yarı çapı daha kısadır gezegen güneşten uzaktayken ise bunun tam tersidir daha kıza bir yörünge yayı çizer ancak yarıçapı daha uzundur bu sayede özdeş zamanlarda özdeş alanlar tararlar ve birbirlerini dengelerler. Kepler'in üçüncü yasasına göre ise bir gezegenin yörünge süresinin karesi ile o gezegenin güneşe olan uzaklığının arasında ilişki vardır.Yani bir gezegenin Güneş'e uzaklığını biliyorsak yörünge süresini,yörünge süresini biliyorsak da Güneş'e olan uzaklığını hesaplayabiliriz. 
+        <p></p>
+
+       <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReFQCSQDquKpiNZHwqvJL5b0wN0vLbT1F9rrwUcU10Xg&s" alt="Hohhman'ın Yörünge Transferi">
+
+       <h3>Hohhman'ın Transfer Yörüngeleri Nedir ?</h3>
+
+        <p>
+            Alman fizikçi Walter Hohhman tarafından 1925 yılında ortaya konulan Hohhman Transfer Yörüngesi temel olarak aynı merkez gökc cismine bağlı olan iki yörünge arasında en az yakıt kulllanımıyla en verimli geçişin yapılmasıdır. Bu transferde sadece iki kısa ateşleme kullanılması hedeflenir. İlk ateşlemede kimyasal enerji kinetik enerjiye dönüşür ve roket dünayanın yer çekiminden etkilenmeyene kadar roketi uzaklaştırır. Bu sayede roket eliptik bir yörüngeye girer sonrasında ise bu yörüngenin yarısına gelene kadar ilerler ve kendini tekrar ateşleyerek hedef yörüngeye varır.  
+        </p>
+        <h4>Kaçış Hızı Nedir?</h4>
+
+        <p>
+           Kaçış hızı bir nesnenin kütleçekimine sahip olan bir gök cisminden(örneğin yıldızlar veya gezegenler) çekiminden kurtulmak için ulaşması gereken hızdır. Yani bir roket dünyanın kütleçekiminden kaçmak istiyorsa kaçış hızına ulaşmak zorundadır.
+        <p>
+           <img class="hero-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYqzdrxqv2wfHIQAgBJ5cS-EduNBfwNvkyulmIXOIqJQ&s=10" alt="Roket">
+        <p>
+            Peki tüm bu öğrendiklerimiz bir roketin hareket etmesini nasıl sağlıyor hadi iceleyelim. Öncelikle roketin kaçış hızına ulaşıp dünyanın çekiminden kurtulması gerekir ki bu hız yaklaşık olarak 11.2 km'dir. Sonrasında ise sırada roketin uzayda nasıl hareket edeceği vardır. Roket uzayda düz bir yol izleyemeyeceği için elipsik yörüngeleri tercih eder ki buda bizi Kepler'in birinci yasasına götürür. Roket yörüngede gezegene yaklaştıkça hızlanır uzaklaştıkça yavaşlar buda bizi Kepler'in ikinci yasasına ulaştırır. Ayrıca roketin yörünge süresi ile gezegene uzaklığını hesaplayabiliriz buda Kepler'in üçüncü yasasıdır. Eğer Mars gibi başka bir gezegene ulaşmak istiyrosakta Hohhman'ın Yörünge Transferini kullanırız ve iki yörünge arasında hareket ederek gezegene ulaşabiliriz. 
+        </p>  
+    </div>
+<script>
+(function applySavedTheme() {
+    const theme = localStorage.getItem("siteTheme") || "deep-space";
+    const accent = localStorage.getItem("siteColor") || "#00f0ff";
+
+    // Vurgu Rengini Uygula
+    document.documentElement.style.setProperty("--accent-color", accent);
+
+    // Arka Plan ve Kart Temasını Uygula
+    if (theme === "deep-space") {
+        document.documentElement.style.setProperty("--bg-color", "#050505");
+        document.documentElement.style.setProperty("--card-bg", "#121b28");
+        document.documentElement.style.setProperty("--text-color", "#f0f0f0");
+    } else if (theme === "nebula") {
+        document.documentElement.style.setProperty("--bg-color", "#13091f");
+        document.documentElement.style.setProperty("--card-bg", "#221236");
+        document.documentElement.style.setProperty("--text-color", "#f3e8ff");
+    } else if (theme === "galaxy") {
+        document.documentElement.style.setProperty("--bg-color", "#080e1e");
+        document.documentElement.style.setProperty("--card-bg", "#0f1a35");
+        document.documentElement.style.setProperty("--text-color", "#e2e8f0");
+    }
+})();
+</script>
+</body>
+</html>
